@@ -1,0 +1,25 @@
+Add "-eudyptula" to EXTRAVERSION
+
+
+initramfs) uname -r
+4.12.0-eudyptula-glightplay8-00062-g2426125-dirty
+
+
+[    0.000000] Linux version 4.12.0-eudyptula-glightplay8-00062-g2426125-dirty (alessio@luivalis) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.4) ) #2 SMP Wed May 24 19:26:03 CEST 2017
+[    0.000000] Command line: root=/dev/ram0 console=ttyAMA0 console=ttyS0
+
+
+Signed-off-by: Coltellacci Alessio <lightplay8@gmail.com>
+
+
+--- linux/Makefile.orig	2017-05-24 20:11:45.909845858 +0200
++++ linux/Makefile	2017-05-24 20:12:06.837539377 +0200
+@@ -1,7 +1,7 @@
+ VERSION = 4
+ PATCHLEVEL = 12
+ SUBLEVEL = 0
+-EXTRAVERSION = -rc2
++EXTRAVERSION = -eudyptula
+ NAME = Fearless Coyote
+ 
+ # *DOCUMENTATION*

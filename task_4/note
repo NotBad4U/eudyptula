@@ -1,0 +1,8 @@
+checkpatch Linux Coding style check
+./checkpatch.pl –terse –file –no-tree <File name>
+
+Remove trailing whitespaces with sed 
+sed -i 's/[ \t]*$//' <File name>
+
+sudo apt install dos2unix
+
