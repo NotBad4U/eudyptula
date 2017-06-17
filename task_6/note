@@ -1,0 +1,5 @@
+http://www.linuxjournal.com/article/2920
+
+Major number 10 is officially assigned to the misc driver. 
+Modules can register individual minor numbers with the misc driver and take care of a small device, 
+needing only a single entry point.
