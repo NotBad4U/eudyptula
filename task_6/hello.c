@@ -20,11 +20,20 @@ static ssize_t my_read(struct file *f, char *buffer,
 {
 	char *my_id = MY_ID;
 
-	pr_info("Return my assign Id: %s", MY_ID);
-	copy_to_user(buffer, my_id, MY_ID_LEN);
+	if (*loff != 0)
+		return 0;
+
+	if (buffer_size < MY_ID_LEN) {
+		pr_info("The buffer provide is to small");
+		return -EINVAL;
+	}
+
+	if (copy_to_user(buffer, my_id, MY_ID_LEN))
+		return -EINVAL;
 
 	*loff += buffer_size;
 
+	pr_info("Return my assign Id: %s", MY_ID);
 	return MY_ID_LEN;
 }
 
