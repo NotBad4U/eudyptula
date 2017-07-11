@@ -3,3 +3,23 @@ http://www.linuxjournal.com/article/2920
 Major number 10 is officially assigned to the misc driver. 
 Modules can register individual minor numbers with the misc driver and take care of a small device, 
 needing only a single entry point.
+
+
+What little said of my code before the refactoring:
+
+- Don't be noisy.  This function can be 1 line log.  Or really, 0 lines...
+
+- That's not a major number.
+
+- Why call this if ret is an error?
+
+- This check isn't needed.
+
+- No error checking?
+
+- This whole function is too complex, and can be made much more "simple".
+{hint} and can be done in one line of code.
+
+- wrong error.
+
+Maybe that can help you too :p 

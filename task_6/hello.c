@@ -13,28 +13,10 @@
 #define MY_ID "03fe7baeaee0"
 #define MY_ID_LEN 13	/* ID length including the final NULL */
 
-static int Major;
-
 static ssize_t my_read(struct file *f, char *buffer,
 			size_t buffer_size, loff_t *loff)
 {
-	char *my_id = MY_ID;
-
-	if (*loff != 0)
-		return 0;
-
-	if (buffer_size < MY_ID_LEN) {
-		pr_info("The buffer provide is to small");
-		return -EINVAL;
-	}
-
-	if (copy_to_user(buffer, my_id, MY_ID_LEN))
-		return -EINVAL;
-
-	*loff += buffer_size;
-
-	pr_info("Return my assign Id: %s", MY_ID);
-	return MY_ID_LEN;
+	return simple_read_from_buffer(buffer, buffer_size, loff, MY_ID, MY_ID_LEN);
 }
 
 static ssize_t my_write(struct file *f, const char *buffer,
@@ -42,16 +24,12 @@ static ssize_t my_write(struct file *f, const char *buffer,
 {
 	char *my_id = MY_ID;
 	char tmp[MY_ID_LEN];
+	ssize_t ret_write;
 
-	if (buffer_size != MY_ID_LEN) {
-		pr_info("The user send more data than expected");
-		return -EINVAL;
-	}
+	ret_write = simple_write_to_buffer(tmp, MY_ID_LEN, loff, buffer, buffer_size);
 
-	if (copy_from_user(tmp, buffer, MY_ID_LEN)) {
-		pr_info("Can\'t read the send by the user");
-		return -EINVAL;
-	}
+	if (ret_write < 0)
+		return ret_write;
 
 	if (strncmp(my_id, buffer, MY_ID_LEN - 1)) {
 		pr_info("That doesn't match the ID: %s", MY_ID);
@@ -80,22 +58,11 @@ static struct miscdevice misc = {
 
 static int __init hello_init(void)
 {
-	Major = misc_register(&misc);
-
-	if (Major < 0) {
-		pr_err("Error for register %s module with Major %d",
-		NAME_MODULE, Major);
-		return Major;
-	}
-
-	// task 0 :)
-	pr_info("Hello World!\n");
-	return 0;
+	return misc_register(&misc);
 }
 
 static void __exit hello_exit(void)
 {
-	pr_info("remove %s module\n", NAME_MODULE);
 	misc_deregister(&misc);
 }
 
