@@ -1,0 +1,20 @@
+They renamed development-process/ to process/ 9 month ago
+commit 0e4f07a65f53e7b3afab71925e56fe6aaa07d696
+
+- Compile your kernel:
+make mrproper
+make defconfig
+make j `nproc`
+
+- Working with linux-next:
+https://www.kernel.org/doc/man-pages/linux-next.html
+
+- Make your initramfs
+sudo mkinitramfs -k -o initrd-img-4.12-eudyptula
+
+- Boot your kernel with qemu:
+qemu-system-x86_64 -kernel bzImage 
+		   -initrd initrd-img-4.12-eudyptula 
+                   -m 1024 
+                   -serial stdio -append "root=/dev/ram0 console=ttyAMA0  console=ttyS0" // Redirect Qemu console to a file or the host terminal
+
