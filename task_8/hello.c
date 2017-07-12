@@ -1,6 +1,7 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
 #include <linux/debugfs.h>
+#include <linux/jiffies.h>
 #include <linux/errno.h>
 
 #define MY_ID "03fe7baeaee0"
@@ -54,8 +55,9 @@ static int __init hello_init(void)
 	if (!eudyptula_dir)
 		return -ENOENT;
 
+	if (!debugfs_create_file("id", PERM_rw_rw_rw_, eudyptula_dir, NULL, &id_ops) ||
+		!debugfs_create_u64("jiffies", PERM_r__r__r__, eudyptula_dir, (u64 *)&jiffies)) {
 
-	if (!debugfs_create_file("id", PERM_rw_rw_rw_, eudyptula_dir, NULL, &id_ops)) {
 		debugfs_remove_recursive(eudyptula_dir);
 		return -ENOENT;
 	}
