@@ -1,0 +1,20 @@
+14:52 $ sudo cat /sys/kernel/debug/eudyptula/id
+03fe7baeaee0
+
+14:53 $ cat /sys/kernel/debug/eudyptula/jiffies
+4297810335
+14:53 $ cat /sys/kernel/debug/eudyptula/jiffies
+4297810931
+14:53 $ sudo echo "yolo" > /sys/kernel/debug/eudyptula/jiffies
+bash: /sys/kernel/debug/eudyptula/jiffies: Permission denied
+14:54 $ echo "yolo" > /sys/kernel/debug/eudyptula/jiffies
+bash: /sys/kernel/debug/eudyptula/jiffies: Permission denied
+
+root@luivalis:~# sudo echo "yolo" > /sys/kernel/debug/eudyptula/foo
+root@luivalis:~# cat /sys/kernel/debug/eudyptula/foo
+yolo
+root@luivalis:~# sudo echo "123456" > /sys/kernel/debug/eudyptula/foo
+root@luivalis:~# cat /sys/kernel/debug/eudyptula/foo
+123456
+14:58 $ sudo sudo echo "yolo" > /sys/kernel/debug/eudyptula/foo
+bash: /sys/kernel/debug/eudyptula/foo: Permission denied
