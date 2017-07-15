@@ -1,0 +1,24 @@
+Create a buffer with a size of one page: 
+https://www.kernel.org/doc/gorman/html/understand/understand006.html
+
+
+
+
+git send-email:
+sudo apt install git-email
+https://burzalodowa.wordpress.com/2013/10/05/how-to-send-patches-with-git-send-email/
+
+If you get the error: 
+"Please install an MTA on this system if you want to use sendmail!"
+Then you might install the apt package sendmail: 
+sudo apt-get install sendmail
+
+[DISCLAIMER!!]
+If you use Gmail with 2-Step Verification Google account you have to use an App Password to bypass the 2-Step auth
+https://support.google.com/accounts/answer/185833
+
+Change the Subject in the patch generate for what little ask.
+For get the ID message on gmail, click on the arrow of your message > See original 
+use git send-email --in-reply-to="Message Id of [ID] Task 8 results" --to little patches/your_patch_jiffies
+
+(See my patchs as example)

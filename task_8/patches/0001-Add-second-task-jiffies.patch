@@ -1,0 +1,35 @@
+From 1797232f5794a14d18df56d0fcffb7b4845b1628 Mon Sep 17 00:00:00 2001
+From: NotBad4U <lightplay8@gmail.com>
+Date: Wed, 12 Jul 2017 15:31:43 +0200
+Subject: [03fe7baeaee0] [PATCH 01/02] Task 08: add jiffies file
+
+---
+ task_8/hello.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/task_8/hello.c b/task_8/hello.c
+index a1daa35..1a4510a 100644
+--- a/task_8/hello.c
++++ b/task_8/hello.c
+@@ -1,6 +1,7 @@
+ #include <linux/module.h>
+ #include <linux/kernel.h>
+ #include <linux/debugfs.h>
++#include <linux/jiffies.h>
+ #include <linux/errno.h>
+ 
+ #define MY_ID "03fe7baeaee0"
+@@ -54,8 +55,9 @@ static int __init hello_init(void)
+ 	if (!eudyptula_dir)
+ 		return -ENOENT;
+ 
++	if (!debugfs_create_file("id", PERM_rw_rw_rw_, eudyptula_dir, NULL, &id_ops) ||
++		!debugfs_create_u64("jiffies", PERM_r__r__r__, eudyptula_dir, (u64 *)&jiffies)) {
+ 
+-	if (!debugfs_create_file("id", PERM_rw_rw_rw_, eudyptula_dir, NULL, &id_ops)) {
+ 		debugfs_remove_recursive(eudyptula_dir);
+ 		return -ENOENT;
+ 	}
+-- 
+2.7.4
+
