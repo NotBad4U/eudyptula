@@ -39,7 +39,7 @@ static ssize_t id_store(struct kobject *kobj, struct kobj_attribute *attr,
 		pr_info("That doesn't match the ID: %s", MY_ID);
 		return -EINVAL;
 	}
-		
+
 	pr_info("That match the ID: %s", MY_ID);
 	return MY_ID_LEN;
 }
@@ -47,7 +47,7 @@ static ssize_t id_store(struct kobject *kobj, struct kobj_attribute *attr,
 static ssize_t jiffies_show(struct kobject *kobj, struct kobj_attribute *attr,
 		      char *buf)
 {
-	return sprintf(buf, "%lu", jiffies);
+	return sprintf(buf, "%lu\n", jiffies);
 }
 
 static ssize_t jiffies_store(struct kobject *kobj, struct kobj_attribute *attr,
@@ -74,23 +74,20 @@ static ssize_t foo_store(struct kobject *kobj, struct kobj_attribute *attr,
 		count = PAGE_SIZE;
 
 	down(&foo);
-	
+
 	data_len = count;
 	strncpy(data, buf, count);
-	
+
 	up(&foo);
 
 	return count;
 }
 
-static struct kobj_attribute id_attribute =
-	__ATTR(id, PERM_rw_rw_rw_, id_show, id_store);
+static struct kobj_attribute id_attribute = __ATTR_RW(id);
 
-static struct kobj_attribute jiffies_attribute =
-	__ATTR(jiffies, PERM_r__r__r__, jiffies_show, jiffies_store);
+static struct kobj_attribute jiffies_attribute = __ATTR_RO(jiffies);
 
-static struct kobj_attribute foo_attribute =
-	__ATTR(foo, PERM_rw_r__r__, foo_show, foo_store);
+static struct kobj_attribute foo_attribute = __ATTR_RW(foo);
 
 
 static struct attribute *attrs[] = {
@@ -109,7 +106,7 @@ static int __init hello_init(void)
 	int retval;
 
 	eudyptula_kobj = kobject_create_and_add("eudyptula", kernel_kobj);
-	
+
 	if (!eudyptula_kobj)
 		return -ENOMEM;
 

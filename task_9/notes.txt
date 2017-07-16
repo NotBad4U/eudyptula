@@ -1,0 +1,5 @@
+Get a example of kobject here:
+
+https://github.com/torvalds/linux/blob/master/samples/kobject/kobject-example.c#L55
+
+https://github.com/torvalds/linux/blob/master/Documentation/kobject.txt

@@ -1,0 +1,9 @@
+root@luivalis:eudyptula# cat id
+03fe7baeaee0root@luivalis:eudyptula# 
+root@luivalis:eudyptula# echo "23ad2c5065c821fe31423c53b1977c2779e744cb" > foo
+root@luivalis:eudyptula# cat foo
+23ad2c5065c821fe31423c53b1977c2779e744cb
+root@luivalis:eudyptula# cat jiffies
+4299266650
+root@luivalis:eudyptula# cat jiffies
+4299267069
