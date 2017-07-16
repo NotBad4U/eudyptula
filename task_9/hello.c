@@ -15,7 +15,7 @@
 #define PERM_r__r__r__	0444
 #define PERM_rw_rw_rw_	0666
 
-static int data_len;
+static ssize_t data_len;
 static char data[PAGE_SIZE];
 
 // This directory entry will point to /sys/kernel/eudyptula
@@ -60,13 +60,27 @@ static ssize_t jiffies_store(struct kobject *kobj, struct kobj_attribute *attr,
 static ssize_t foo_show(struct kobject *kobj, struct kobj_attribute *attr,
 			char *buf)
 {
-	return 0;
+	down(&foo);
+	strncpy(buf, data, data_len);
+	up(&foo);
+
+	return data_len;
 }
 
 static ssize_t foo_store(struct kobject *kobj, struct kobj_attribute *attr,
 			 const char *buf, size_t count)
 {
-	return 0;
+	if (count > PAGE_SIZE)
+		count = PAGE_SIZE;
+
+	down(&foo);
+	
+	data_len = count;
+	strncpy(data, buf, count);
+	
+	up(&foo);
+
+	return count;
 }
 
 static struct kobj_attribute id_attribute =
