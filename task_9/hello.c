@@ -11,10 +11,6 @@
 #define MY_ID "03fe7baeaee0"
 #define MY_ID_LEN 14
 
-#define PERM_rw_r__r__	0644
-#define PERM_r__r__r__	0444
-#define PERM_rw_rw_rw_	0666
-
 static ssize_t data_len;
 static char data[PAGE_SIZE];
 
@@ -48,13 +44,6 @@ static ssize_t jiffies_show(struct kobject *kobj, struct kobj_attribute *attr,
 		      char *buf)
 {
 	return sprintf(buf, "%lu\n", jiffies);
-}
-
-static ssize_t jiffies_store(struct kobject *kobj, struct kobj_attribute *attr,
-		       const char *buf, size_t count)
-{
-	// Should never happend
-	return -EINVAL;
 }
 
 static ssize_t foo_show(struct kobject *kobj, struct kobj_attribute *attr,
